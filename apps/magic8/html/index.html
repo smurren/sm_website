@@ -11,15 +11,17 @@
 		
 		<style>
 			body {
+				height: 700px;
 				background: #F0EAD6;	
 			}
 			img {
 				z-index: -1;
+				transform: scale(0.5);
 			}
 			button {
 				position: absolute;
-				top: 760px;
-				left: 380px;
+				top: 565px;
+				left: 230px;
 			}
 			ul {
 				list-style-type:none;	
@@ -27,9 +29,9 @@
 			}
 			.output {
 				position: absolute;
-				top: 390px;
-				left: 336px;
-				font-size: 26px;
+				top: 236px;
+				left: 187px;
+				font-size: 18px;
 				color: #CCCCCC;
 			}
 			.answer.ng-enter {
@@ -55,7 +57,7 @@
 	</head>
 
 	<body ng-controller="Magic8BallController as m8Ctrl">
-		<div>
+		<div style="position: relative; top: -175px; left: -150px;">
 			<img id="magic8ball" src="apps/magic8/images/Magic_eight_ball.png"/>
 		</div>
 		<ul class="output">
