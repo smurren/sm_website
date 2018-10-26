@@ -1,0 +1,12 @@
+{
+  "name": "start-polymer3",
+  "version": "1.0.0",
+  "main": "src/home.js",
+  "repository": "",
+  "author": "Sean Murren",
+  "license": "",
+  "dependencies": {
+    "@polymer/polymer": "latest",
+    "@webcomponents/webcomponentsjs": "latest"
+  }
+}

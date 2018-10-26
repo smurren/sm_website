@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="piMessager">
+	
+	<head>
+		<script type="text/javascript" src="apps/piMessager/js/angular.min.js"></script>
+		<script type="text/javascript" src="apps/piMessager/js/piMessagerApp.js"></script>
+		<link rel="stylesheet" type="text/css" href="apps/piMessager/css/bootstrap.min.css" />
+		<title>Pi Messager</title>
+			
+		<style>
+			
+			body {
+				background-color: #B2BEB5;
+			}
+			blockquote {
+				width: 360px;
+				border-radius: 36px;
+				background: #73AD21;
+				padding: 18px;
+				border: solid 6px black;
+				z-index: -1;	
+				transition-delay: 2s;
+			}
+
+			p:nth-child(1n){
+				font-size: 16px;	
+			}
+			p:nth-child(2n){
+				font-size: 20px;	
+			}
+			p:nth-child(3n){
+				text-align: right;	
+				font-size: 14px;	
+			}
+	
+			.inputbox {
+				width: 325px;
+				height: 225px;
+				padding: 10px;
+				margin-left: auto;
+  				margin-right: auto;		
+				/*text-align: center;
+				display:inline-block;*/
+			}
+			/*.infobox{
+				width: 400px;
+				height: 225px;
+				padding: 10px;
+				white-space: normal;
+				float:left;
+				text-align: left;
+				display:inline-block;
+			}*/
+			.footer {
+				font-style: italic;	
+			}
+			.bar {
+				background: #73AD21; 
+				height: 38px; 
+				position: relative; 
+				border-top: solid 6px black;
+				border-bottom: solid 6px black;
+			}
+			#container {
+				width: 99%;
+				height: 225px; 
+				margin-top:5px; 
+				white-space:nowrap;
+			}
+			#status {
+				height:36px; 
+				padding-top:36px; 
+				padding-bottom:10px; 
+				color:#D70040;
+			}
+			input:focus { 
+				border-color:#9ecaed;
+				box-shadow: 0px 0px 6px 6px #9ecaed;
+			}
+			textarea {
+				width: 330px;
+				height: 120px;
+				resize: none;	
+			}
+			textarea:focus { 
+				border-color:#9ecaed;
+				box-shadow: 0px 0px 6px 6px #9ecaed;
+			}
+
+		</style>
+		
+	</head>
+	
+	
+	<body ng-controller="MessageCtrl as msg">
+			
+		<h3 style="text-align:center;"><strong>Leave me a message and make my Raspberry Pi talk<strong></h3>
+		
+		<!-- CONTAINER DIV OF INFO DIV AND INPUT DIV -->
+		<div id="container">
+			
+			<!-- INFO DIV:  Displays information about app -->
+			<!--
+			<div class="infobox">
+				<h4>PiMessager App Info:</h4>
+				<ul>
+					<li>Submitted message is played as audio on Pi's speaker using espeak</li>
+					<li>Up to 100 messages saved with message, name, date, time</li>
+					<li>Data saved to txt file, no database used</li>
+					<li>Implemented Infinite Scrolling with AngularJS</li>
+				</ul>
+			</div>
+			-->
+			
+			<!-- INPUT DIV: Contains message and name inputs, bot test -->
+			<div class="inputbox">
+				<!-- MESSAGE SUBMIT FORM -->
+				<form ng-submit="msg.sendMessage()">
+					<h3><textarea ng-model="msg.message" placeholder="Write a message..." style="border-radius: 4px;"></textarea></h3>
+					<input type="text" ng-model="msg.username" placeholder="Name..." style="display:block; margin-bottom:24px; border-radius: 4px;"/>
+					<button class="btn btn-default" style="margin-right:14px; box-shadow: 0px 0px 3px 3px #8A7F80;"> Submit </button>
+					<input type="radio" name="botTest" ng-model="msg.notAbot" value="0"/> I'm a bot
+					<input type="radio" name="botTest" ng-model="msg.notAbot" value="1" style="margin-left:10px;"/> I'm not a bot
+				</form>
+			</div>
+		</div>
+		
+		<!-- DISPLAY SUBMIT STATUS UPDATES -->
+		<div align="center" id="status">
+			{{msg.thankYouMessage}}
+		</div>
+		
+		<hr>		
+		<h4 style="text-align:center;">Past messages left for me:</h4>
+		<hr>
+			
+		<!-- DISPLAY MESSAGES -->	
+		<div>	
+			<div ng-repeat="message in msg.messageList | limitTo:msg.listEndIndex" style="display: inline;">
+				<blockquote ng-style='{"margin-left": msg.getBlockQuoteMargin($index)}'>
+
+					<p ng-repeat="part in msg.formatMessage(message)" ng-class="{footer:$index > 0}">{{part}}</p>
+
+				</blockquote>
+				<div class="bar" ng-style="msg.getBarPosition($index)"></div>
+			</div>
+		</div>
+	</body>
+	
+</html>
+

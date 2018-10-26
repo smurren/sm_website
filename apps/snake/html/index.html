@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Snake</title>
+	
+	<style>
+		body {
+			background-color: #353839;	
+		}
+		canvas { 
+			background: #EEEEEE;
+			padding: 0;
+			margin-top: 33px;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+		.BIG {
+			font-size: 140px;
+			position: absolute;
+			z-index: -1;
+		}
+		.score {
+			text-align: center;
+			font-size: 28px;
+			color: #E8000D;
+			font-weight: bold;
+		}
+		#descriptionContainer {
+			width: 550px;
+			height: 340px;
+			border: solid 8px #222222;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 60px;
+			padding: 15px;
+			color: #ACACAC;
+		}
+		#scoreDescription {
+			list-style-type: none;
+			margin-left: 110px;
+			font-size: 18px;
+			
+			
+		}
+		#buttonOptions {
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 40px;
+			width: 640px;
+		}
+		#sizeDisplay, #speedDisplay {
+			color: #FFD300;
+		}
+		button {
+			font-size: 20px;
+		}
+		div p {
+			font-size: 18px;	
+		}
+	</style>
+	
+</head>
+
+<body>
+	<canvas id="myCanvas" width="640" height="480"></canvas>
+	<div id="scoreDisplay" class="score"></div>
+	
+	<strong>
+		<div class="BIG" style="left: 20px; top: -25px;">S</div>
+		<div class="BIG" style="left: 50px; top: 80px;">N</div>
+		<div class="BIG" style="left: 30px; top: 185px;">A</div>
+		<div class="BIG" style="left: 0px; top: 290px;">K</div>
+		<div class="BIG" style="left: 45px; top: 395px;">E</div>
+	</strong>
+	
+	<div id="buttonOptions">
+		<button onclick="toggleSize()">Toggle Size</button> <span id="sizeDisplay"></span>
+		<br>
+		<button onclick="toggleSpeed()">Toggle Speed</button> <span id="speedDisplay"></span>
+	</div>
+
+	
+	<div id="descriptionContainer">
+		<h2>How to play:</h2>
+		<p>Controls: Arrow keys to move, space to pause</p>
+		<p>
+			Classic Snake, but with a twist.  Regular food is green and grows 
+			the snake by 1.  The twist is there is a rarer special type of food
+			that is purple.  Instead of growing the snake, it makes that part of
+		   the snake safe to eat as well!  Eating the edible parts of the snake
+		   shortens the length of the snake and gives a much higher score.
+		</p>
+		<h2>Scoring:</h2>
+		<ul id="scoreDescription">
+			<li>Regular Food: <strong style="color: #E8000D;">1 points</strong></li>
+			<li>Special Food: <strong style="color: #E8000D;">1 points</strong></li>
+			<li>Edible Snake: <strong style="color: #E8000D;">5 points</strong></li>
+		</ul>
+	</div>
+	
+</body>
+
+<!-- PAGE JAVASCRIPT -->
+<script type="text/javascript" src="apps/snake/js/snakeApp.js"></script>	
+
+</html>

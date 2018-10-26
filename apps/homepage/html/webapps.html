@@ -1,0 +1,12 @@
+
+<div id="applistContainer" ng-controller="WebAppsController as waCtrl">
+	<h4><u>My Web Applications:</u></h4>
+	<div class="appDescription" ng-repeat="webapp in waCtrl.webapps">
+		<h3 style="margin-top: 10px;">
+			{{webapp.date}}: <strong><a href="{{webapp.link}}">{{webapp.title}}</a></strong>
+		</h3>
+		<ul>
+			<li ng-repeat="info in webapp.info">{{info}}</li>
+		</ul>
+	</div>	
+</div>

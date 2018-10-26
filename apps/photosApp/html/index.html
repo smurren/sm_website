@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="photosApp">
+	
+	<head>
+		<title>Photos App</title>
+		<link rel="stylesheet" type="text/css" href="apps/photosApp/css/main.css" />
+		<script type="text/javascript" src="apps/photosApp/js/angular-1.5.2/angular.min.js"></script>
+		<script type="text/javascript" src="apps/photosApp/js/angular-1.5.2/angular-route.min.js"></script>
+		<script type="text/javascript" src="apps/photosApp/js/exif/exif.js"></script>
+		<script type="text/javascript" src="apps/photosApp/js/photosApp.js"></script>
+	</head>
+
+	<body ng-controller="PhotosAppController as photoCtrl">
+
+		<div id="modal" class="modal" style="display: {{photoCtrl.modalDisplay}}" ng-if="photoCtrl.modalOpen">	
+			<div id="uploadModalForm" class="modalWindow" ng-if="photoCtrl.showUploadModal && !photoCtrl.uploading">	
+				<div>	 
+					<input id="secretInput" class="modalInput" type="text" ng-model="photoCtrl.secret" placeholder="Secret token (Required)">
+					<input id="fileInput" class="modalInput" type="file" multiple>
+				</div>
+				<div class="modalActionContainer">			 	
+					<button class="modalActionButton" ng-click="photoCtrl.upload()">Upload</button>
+					<button class="modalActionButton" ng-click="photoCtrl.setModalState('closed')"">Cancel</button>
+				</div>
+			</div>
+			<div id="uploadModalStatus" class="modalWindow uploadMessage" ng-if="photoCtrl.uploading">
+				Uploading {{photoCtrl.currentFileUploading}}
+			</div>
+
+			<div id="exifModal" class="exifInfo modalWindow" ng-if="photoCtrl.showEXIFModal">
+				<div id="exifModalTitle" ng-if="photoCtrl.showEXIFModal">{{photoCtrl.exifTitle}}</div>
+				<div style="height: 100%; overflow-y: auto;">
+					<div class="exifItem" ng-repeat="item in photoCtrl.exifData"><span class="exifItemKey"">{{item[0]}}: </span><span>{{item[1]}} </span></div>
+				</div>
+				<div class="modalActionContainer">
+					<button id="exifCloseButton" class="modalActionButton" ng-if="photoCtrl.showEXIFModal" ng-click="photoCtrl.setModalState('closed')"">Close</button>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="toolbar">
+			<a href="/photos/#/" style="text-decoration: none;">
+				<span id="title-name">SEAN MURREN</span> <span id="title-photography">PHOTOGRAPHY</span>
+			</a>
+			<div class="spacer"></div>		
+			<div id="sorter" ng-if="photoCtrl.view == 'gallery'">
+				<select id="sortSelect" ng-model="photoCtrl.selectedSort" ng-change="photoCtrl.sortSelected()">
+					<option class="sortOption" ng-repeat="item in photoCtrl.sortOptions" value="{{item}}">{{item}}</option>
+				</select>
+				<button id="sortButton" class="toolbarButton tooltip" ng-click="photoCtrl.toggleSortMenu()">
+					<img id="sortIcon-none" class="sortIcon"src="apps/photosApp/icons/sort-solid.svg" style="display: {{photoCtrl.sortIconState.none}};"></img>
+					<img id="sortIcon-ascend" class="sortIcon" src="apps/photosApp/icons/sort-up-solid.svg" style="display: {{photoCtrl.sortIconState.ascend}};"></img>
+					<img id="sortIcon-descend" class="sortIcon" src="apps/photosApp/icons/sort-down-solid.svg" style="display: {{photoCtrl.sortIconState.descend}};"></img>		
+					<span class="tooltiptext">Sort</span>	
+				</button>
+			</div>	
+			<button id="uploadButton" class="toolbarButton tooltip" ng-if="photoCtrl.view == 'gallery'" ng-click="photoCtrl.openUploadModal()">
+				<img src="apps/photosApp/icons/upload-solid.svg"></img>
+				<span class="tooltiptext">Upload</span>
+			</button>
+			<button id="exifButton" class="toolbarButton" ng-if="photoCtrl.view == 'detail'" ng-click="photoCtrl.openEXIFModal()" disabled>EXIF</button>
+		</div>	
+
+		<div id="mainContainer">
+
+			<div id="gallery" class="galleryView" ng-if="photoCtrl.view == 'gallery'">
+				<div class="thumbnailContainer" ng-repeat="thumbnail in photoCtrl.thumbnails">
+					<img class="thumbnail" ng-src="{{thumbnail[1]}}" ng-click="photoCtrl.viewImage(thumbnail[0])" onload="thumbLoaded()"></img>
+				</div>
+			</div>
+
+			<div class="detailView" ng-if="photoCtrl.view == 'detail'">
+				<img id="fullDetailImage" class="fullImage" ng-src="{{photoCtrl.detailSrc}}" ng-click="photoCtrl.toggleZoom()" onload="getDetailExif()"></img>
+			</div>
+
+		</div>
+	</body>
+
+</html>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="magic8App">
+	
+	<script type="text/javascript" src="apps/magic8/js/angular-1.5.2/angular.min.js"></script>
+	<script type="text/javascript" src="apps/magic8/js/angular-1.5.2/angular-animate.js"></script>
+	<script type="text/javascript" src="apps/magic8/js/magic8App.js"></script>
+	
+	<head>
+		<link rel="stylesheet" type="text/css" href="apps/magic8/css/bootstrap.min.css" />
+		<title>Magic 8 Ball</title>
+		
+		<style>
+			body {
+				background: #F0EAD6;	
+			}
+			img {
+				z-index: -1;
+			}
+			button {
+				position: absolute;
+				top: 760px;
+				left: 380px;
+			}
+			ul {
+				list-style-type:none;	
+				text-align: center;
+			}
+			.output {
+				position: absolute;
+				top: 390px;
+				left: 336px;
+				font-size: 26px;
+				color: #CCCCCC;
+			}
+			.answer.ng-enter {
+				transition:all ease-in 1.8s;
+				-webkit-transition-delay: 0.8s; /* Safari */
+   			transition-delay: 1s;
+			}
+			
+			.answer.ng-leave.ng-leave-active,
+			.answer.ng-move,
+			.answer.ng-enter {
+				opacity:0;
+			}
+
+			.answer.ng-leave,
+			.answer.ng-move.ng-move-active,
+			.answer.ng-enter.ng-enter-active {
+				opacity:1;
+			}
+			
+		</style>
+		
+	</head>
+
+	<body ng-controller="Magic8BallController as m8Ctrl">
+		<div>
+			<img id="magic8ball" src="apps/magic8/images/Magic_eight_ball.png"/>
+		</div>
+		<ul class="output">
+			<li class="answer" ng-repeat="word in m8Ctrl.message">
+				<div style="width:145px;"><strong>{{word}}</strong></div>
+			</li>
+		</ul>
+		<h1><button ng-click="m8Ctrl.getAnswer()">SHAKE</button></h1>
+		<p style="text-align:center; margin-top: 50px;">Created by Sean Murren, July 2016</p>
+		<p style="text-align:center;">Image by MZMcBride at English Wikipedia [Public domain], <a href="https://commons.wikimedia.org/wiki/File%3AMagic_eight_ball.png">via Wikimedia Commons</a></p>
+	</body>
+  
+</html>
