@@ -153,10 +153,10 @@ class Snake(object):
 	def index(self):
 		return open('apps/snake/html/index.html')	
   
-class ProcessingTest(object):
+class Processing(object):
 	@cherrypy.expose
 	def index(self):
-		return open('html/processing/test.html')
+		return open('apps/processing/html/nature1.html')
 	
 class DbTest(object):
 
@@ -400,7 +400,7 @@ if __name__ == '__main__':
 	cherrypy.tree.mount(PiMessager(), '/PI-Messager', config)
 	cherrypy.tree.mount(SudokuSolver(), '/sudoku', config)
 	#cherrypy.tree.mount(DbTest(), '/dbtest', config)
-	cherrypy.tree.mount(ProcessingTest(), '/processingTest', config)
+	cherrypy.tree.mount(Processing(), '/processing', config)
 	cherrypy.tree.mount(Magic8(), '/magic8', config)
 	cherrypy.tree.mount(Snake(), '/snake', config)
 	cherrypy.tree.mount(Homepage(), '/', config)
