@@ -41,22 +41,22 @@ class HomeMain extends PolymerElement {
 		let height = window.innerHeight - 96;  //browser height - 3x header height
 		
 		if (this._selectedSection) {
-			this._selectedSection.setHeight("32px");
+			this._selectedSection.setHeight("32px", false);  //second arg is expanded flag, helps expandable-section element handle scrolling
 			if (this._selectedSection != section) {
-				section.setHeight(height+"px");
+				section.setHeight(height+"px", true);
 				this.set('sectionToggleFlag', false);
 			}
 			else {
 				if (this.sectionToggleFlag === false)
-					section.setHeight("32px");
+					section.setHeight("32px", false);
 				else {
-					section.setHeight(height+"px");
+					section.setHeight(height+"px", true);
 				}
 				this.set('sectionToggleFlag', !this.sectionToggleFlag);
 			}
 		}
 		else {
-			section.setHeight(height+"px");
+			section.setHeight(height+"px", true);
 		}
 
 		this.set('_selectedSection', section);
@@ -70,6 +70,12 @@ class HomeMain extends PolymerElement {
 			--sectionHeight: 32px;
 			--sectionFontSize: 11px;
 			--sectionTransitionSpeed: 750ms;
+			--aboutBorder: solid #7a7a7a;
+			--aboutBorderWidth: 0px 0px 0px 14px;
+			--webappsBorder: solid #bcbcbc;
+			--webappsBorderWidth: 0px 0px 0px 14px;
+			--projectsBorder: solid #3d3935;
+			--projectsBorderWidth: 0px 0px 0px 14px;
 		}
 		#homeContainer {
 			height: 100%;

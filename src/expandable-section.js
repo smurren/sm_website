@@ -37,7 +37,8 @@ class ExpandableSection extends PolymerElement {
 			value: "0px 0px 2px 0px"
 		},
 		_showSpacerLeft: { type: Boolean, value: false },
-		_showSpacerRight: { type: Boolean, value: false }
+		_showSpacerRight: { type: Boolean, value: false },
+		_expanded: { type: Boolean, value: false }
     };
   }
 
@@ -51,12 +52,24 @@ class ExpandableSection extends PolymerElement {
 	}
 
 	/*  Accepts string h parameter.  Include px or %, etc */
-	setHeight(h) {
+	setHeight(h, expanded) {
 		this.$.container.style.height = h;
+		this._expanded = expanded;
 	}
 
-	_onClick() {
+	_onClick() {	
+		let delay = parseFloat(window.getComputedStyle(this.$.container).transition.split(" ")[1])*1000.0;
+		let overflow = window.getComputedStyle(this.$.slotContainer).overflow;
+		//hide overflow bar
+		this.$.slotContainer.style.overflow = "hidden";
+		//thow click event for parent elements
 		this.dispatchEvent(new CustomEvent('section-clicked', {detail: {}}));
+
+		setTimeout(function(){
+			if (overflow === "hidden" && this._expanded)
+				this.$.slotContainer.style.overflow = "auto";
+		}.bind(this), delay);
+
 	}
 
 	_headerPositionChange(val, oldval) {
@@ -76,9 +89,12 @@ class ExpandableSection extends PolymerElement {
 		#container {
 			height: var(--sectionHeight, 100%);		
 			width: var(--sectionWidth, 100%);
-			overflow: hidden;
 			-webkit-transition: height var(--sectionTransitionSpeed, 1s);
+			-webkit-transition-timing-function: ease;
 			 transition: height var(--sectionTransitionSpeed, 1s);
+			transition-timing-function: ease;
+			padding: 2px 0px 2px 0px;
+			overflow: hidden;
 		}
 		#headerContainer {
 			display: flex;
@@ -86,6 +102,7 @@ class ExpandableSection extends PolymerElement {
 			height: var(--sectionHeight, 40px);		
 			width: calc(100% - 14px);
 			cursor: pointer;
+			margin-bottom: 10px;
 		}
      		#header {
 			flex: 0;
@@ -97,8 +114,9 @@ class ExpandableSection extends PolymerElement {
 			height: 100%;
 		}
 		#slotContainer {
-			height: 100%; 
-			overflow-y: auto;
+			height: calc(100% - 96px); 
+			padding: 15px 18px 15px 14px;
+			overflow: hidden;
 		}
       </style>
 

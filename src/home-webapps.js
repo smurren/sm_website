@@ -95,7 +95,18 @@ class HomeWebapps extends PolymerElement {
 
 			<style>
 				#appsContainer {
+					border: var(--webappsBorder, none);
+					border-width: var(--webappsBorderWidth, 0);
 					
+				}
+				.appContainer {
+					width: 550px;
+					padding: 8px;
+					margin: 10px 0px 10px 0px;
+					
+				}
+				.appHeader {
+					font-size: 20px;
 				}
 				.infoContainer {
 
@@ -104,15 +115,17 @@ class HomeWebapps extends PolymerElement {
 
 			<div id="appsContainer">
 				<template is="dom-repeat" items="[[webapps]]" as="app">
-					<div>[[app.title]]</div>
-					<div>[[app.date]]</div>
-					<div><a href="[[app.link]]">[[app.link]]</a></div>
-					<div class="infoContainer">
-						<template is="dom-repeat" items="[[app.info]]" as="info">
+					<div class="appContainer">
+						<div class="appHeader">
+							<span>[[app.date]]: </span> <span> <a href="[[app.link]]">[[app.title]]</a></span>
+						</div>
+						<div class="infoContainer">
 							<ul>
-								<li>[[info]]</li>
+								<template is="dom-repeat" items="[[app.info]]" as="info">
+									<li>[[info]]</li>
+								</template>
 							</ul>
-						</template>
+						</div>
 					</div>
 				</template>
 			</div>
