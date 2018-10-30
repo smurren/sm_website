@@ -7,8 +7,6 @@
   "license": "",
   "dependencies": {
     "@polymer/polymer": "latest",
-    "@webcomponents/webcomponentsjs": "latest",
-    "angular": "^1.7.5",
-    "angular-route": "^1.7.5"
+    "@webcomponents/webcomponentsjs": "latest"
   }
 }

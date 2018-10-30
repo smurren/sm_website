@@ -34,18 +34,18 @@ class HomeAbout extends PolymerElement {
 				border-width: var(--aboutBorderWidth, 0);
 			}
 			.aboutHeader {
-				font-size: 26px;
+				font-size: 30px;
 				margin-bottom: 10px;
 			}
 			#aboutMeName {
 				
 			}
 			#aboutMeJobTitle {
-				font-size: 16px;
+				font-size: 20px;
 				margin-bottom: 16px;
 			}
 			.aboutDescription {
-				font-size: 12px;
+				font-size: 14px;
 				
 			}
 			.aboutSpacer { 
@@ -61,7 +61,7 @@ class HomeAbout extends PolymerElement {
 		</style>
 		<div id="mainAboutContainer" style=" position: relative; display: flex; min-width: 900px;">
 		<div id="aboutContainer">
-			<div style="display: inline-block; max-width: 450px;">
+			<div style="display: inline-block; max-width: 565px;">
 			<div id="aboutMeName" class="aboutHeader">
 				Sean Murren
 			</div>
@@ -86,7 +86,7 @@ class HomeAbout extends PolymerElement {
 					GitHub
 				</div>
 				<div class="aboutDescription">
-					<span>The source code for this website, web applications, and many of the other projects can be found on my Github page </span>
+					<span>The source code for this website, web applications, and many of the other projects can be found on my GitHub page </span>
 					<a href="http://github.com/smurren">http://github.com/smurren</a>
 				</div>
 			</div>
