@@ -25,7 +25,7 @@ def getMariaDBConnection():
 class Homepage(object):
 	@cherrypy.expose
 	def index(self):
-		return open('apps/homepage/html/index.html')
+		return open('index.html')
 
 class Magic8(object):
 	@cherrypy.expose
