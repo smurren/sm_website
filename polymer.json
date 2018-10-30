@@ -5,7 +5,7 @@
     
   ],
   "sources": [
-   "src/home-main.js",
+   "src/**",
    "manifest/**",
    "package.json"
   ],
@@ -13,14 +13,14 @@
 	"myServer.py",
 	"startServer.sh",
 	"manifest.json",
+	"voicemail-messages.txt",
 	"node_modules/@webcomponents/webcomponentsjs/**",
 	"apps/**",
 	"images/**"
   ],
   "builds": [
     { 
-      "preset": "es5-bundled",
-	"html": { "minify": true }
+      "preset": "es5-bundled"
     }
   ],
   "moduleResolution": "node",

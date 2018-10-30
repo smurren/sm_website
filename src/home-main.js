@@ -4,6 +4,7 @@ import './expandable-section.js'
 import './home-about.js'
 import './home-webapps.js'
 import './home-projects.js'
+
 //import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings';
 
 class HomeMain extends PolymerElement {

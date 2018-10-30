@@ -67,7 +67,7 @@ class HomeProjects extends PolymerElement {
 					header: "Java/JavaScript",
 					link: "https://www.deviantart.com/rockerguyaa/gallery/?catpath=/",
 					title: "Generative Art",
-					text: " – Digital art created with Java and Javascript based scripts often incorporating some form of randomization. Link is to the gallery of images produced.  Code is not included at this time, but all code used to produce said images was implemented by me."
+					text: " – Digital art created with Java and Javascript based scripts often incorporating some form of randomization. Link is to the gallery of images produced.  Code is not included at this time, but all scripts used to produce said images were implemented by me."
 					}
 				]
 			}

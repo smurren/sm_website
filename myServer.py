@@ -390,6 +390,21 @@ if __name__ == '__main__':
 		'/apps': {
 			'tools.staticdir.on': True,
 			'tools.staticdir.dir': os.path.join(HERE, 'apps')},
+		'/node_modules': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(HERE, 'node_modules')},
+		'/other_dependencies': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(HERE, 'other_dependencies')},
+		'/src': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(HERE, 'src')},
+		'/images': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(HERE, 'images')},
+		'/manifest': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(HERE, 'manifest')},
 		'/photos': {
 			'tools.staticdir.on': True,
 			'tools.staticdir.dir': PHOTOS_DIRECTORY}

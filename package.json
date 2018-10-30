@@ -1,5 +1,5 @@
 {
-  "name": "start-polymer3",
+  "name": "website",
   "version": "1.0.0",
   "main": "src/home.js",
   "repository": "",
@@ -7,6 +7,8 @@
   "license": "",
   "dependencies": {
     "@polymer/polymer": "latest",
-    "@webcomponents/webcomponentsjs": "latest"
+    "@webcomponents/webcomponentsjs": "latest",
+    "angular": "^1.7.5",
+    "angular-route": "^1.7.5"
   }
 }
