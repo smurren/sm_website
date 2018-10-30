@@ -13,6 +13,10 @@ class HomeAbout extends PolymerElement {
 		super();
 	}
 
+	getHeight() {
+		return this.$.mainAboutContainer.clientHeight;
+	}
+
 	ready(){
 		super.ready();
 		this.addEventListener('click', this._onClick);
@@ -51,11 +55,11 @@ class HomeAbout extends PolymerElement {
 				transform: scale(0.8);
 				mix-blend-mode: multiply;
 				vertical-align: top;
-				margin: 85px 0 auto;
+				margin: 85px 0px 0px 85px;
 
 			}
 		</style>
-		<div style=" position: relative; display: flex;">
+		<div id="mainAboutContainer" style=" position: relative; display: flex; min-width: 900px;">
 		<div id="aboutContainer">
 			<div style="display: inline-block; max-width: 450px;">
 			<div id="aboutMeName" class="aboutHeader">
@@ -91,10 +95,7 @@ class HomeAbout extends PolymerElement {
 		</div>
 		<div style="flex: 1; width: 300px; vertical-align: top;"><img id="image-pi" src="images/raspberrypi3black.jpg"/></img></div>
 		</div>
-		
 
-
-		<!-- <img id="image-pi" src="images/raspberrypi3black.jpg"/></img> -->
 		`;
 	}
 }

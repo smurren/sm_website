@@ -20,7 +20,7 @@
 				</div>
 				<div class="modalActionContainer">			 	
 					<button class="modalActionButton" ng-click="photoCtrl.upload()">Upload</button>
-					<button class="modalActionButton" ng-click="photoCtrl.setModalState('closed')"">Cancel</button>
+					<button class="modalActionButton" ng-click="photoCtrl.setModalState('closed')">Cancel</button>
 				</div>
 			</div>
 			<div id="uploadModalStatus" class="modalWindow uploadMessage" ng-if="photoCtrl.uploading">
@@ -30,10 +30,10 @@
 			<div id="exifModal" class="exifInfo modalWindow" ng-if="photoCtrl.showEXIFModal">
 				<div id="exifModalTitle" ng-if="photoCtrl.showEXIFModal">{{photoCtrl.exifTitle}}</div>
 				<div style="height: 100%; overflow-y: auto;">
-					<div class="exifItem" ng-repeat="item in photoCtrl.exifData"><span class="exifItemKey"">{{item[0]}}: </span><span>{{item[1]}} </span></div>
+					<div class="exifItem" ng-repeat="item in photoCtrl.exifData"><span class="exifItemKey">{{item[0]}}: </span><span>{{item[1]}} </span></div>
 				</div>
 				<div class="modalActionContainer">
-					<button id="exifCloseButton" class="modalActionButton" ng-if="photoCtrl.showEXIFModal" ng-click="photoCtrl.setModalState('closed')"">Close</button>
+					<button id="exifCloseButton" class="modalActionButton" ng-if="photoCtrl.showEXIFModal" ng-click="photoCtrl.setModalState('closed')">Close</button>
 				</div>
 			</div>
 

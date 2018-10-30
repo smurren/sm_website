@@ -78,6 +78,10 @@ class HomeProjects extends PolymerElement {
 		super();
 	}
 
+	getHeight() {
+		return this.$.projectsContainer.clientHeight;
+	}
+
 	ready(){
 		super.ready();
 	}

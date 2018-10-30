@@ -85,6 +85,10 @@ class HomeWebapps extends PolymerElement {
 		super();
 	}
 
+	getHeight() {
+		return this.$.appsContainer.clientHeight;
+	}
+
 	ready(){
 		super.ready();
 	}

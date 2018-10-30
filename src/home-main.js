@@ -116,7 +116,7 @@ class HomeMain extends PolymerElement {
 				<expandable-section 
 					header="Web Applications" 
 					header-position="left"
-					color="#bcbcbc" 
+					color="#7a7a7a" 
 					background-color="#3d3935"
 					border-width="2px 14px 0px 0px"
 					on-section-clicked="_sectionClicked">
@@ -132,7 +132,7 @@ class HomeMain extends PolymerElement {
 				<expandable-section 
 					header="Other Projects" 
 					header-position="right"
-					color="#3d3935" 
+					color="#7a7a7a" 
 					background-color="#7a7a7a"
 					border-width="2px 0px 0px 14px"
 					on-section-clicked="_sectionClicked">

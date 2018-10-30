@@ -37,8 +37,7 @@ class ExpandableSection extends PolymerElement {
 			value: "0px 0px 2px 0px"
 		},
 		_showSpacerLeft: { type: Boolean, value: false },
-		_showSpacerRight: { type: Boolean, value: false },
-		_expanded: { type: Boolean, value: false }
+		_showSpacerRight: { type: Boolean, value: false }
     };
   }
 
@@ -51,25 +50,40 @@ class ExpandableSection extends PolymerElement {
 		this.$.headerContainer.addEventListener('click', this._onClick.bind(this));
 	}
 
-	/*  Accepts string h parameter.  Include px or %, etc */
+	/*  Accepts string h parameter.  Include px or %, etc .  Because of this the caller must say if new height is expanding or not*/
 	setHeight(h, expanded) {
 		this.$.container.style.height = h;
-		this._expanded = expanded;
+
+		let delay = this._delayMS();
+		let overflow = window.getComputedStyle(this.$.slotContainer).overflow;
+
+		if (expanded)
+				this.$.slotContainer.style.overflow = "hidden";
+
+		setTimeout(function(){
+
+			let slotHeight = this.$.slotContainer.clientHeight;
+			let contentHeight = this.$.slot.assignedNodes({flatten: true})[1].getHeight();
+
+			if (slotHeight < contentHeight)
+				this.$.slotContainer.style.overflow = "auto";
+			else
+				this.$.slotContainer.style.overflow = "hidden";
+
+		}.bind(this), delay);
+	}
+
+	_delayMS() {
+		let delayString = window.getComputedStyle(this.$.container).transition.split(" ")[1];
+		let webkitDelayString = window.getComputedStyle(this.$.container).getPropertyValue("-webkit-transition-duration");
+		let mozDelayString = window.getComputedStyle(this.$.container).getPropertyValue("-moz-transition-duration");
+
+		return parseFloat(delayString || webkitDelayString || mozDelayString) * 1000.0;
 	}
 
 	_onClick() {	
-		let delay = parseFloat(window.getComputedStyle(this.$.container).transition.split(" ")[1])*1000.0;
-		let overflow = window.getComputedStyle(this.$.slotContainer).overflow;
-		//hide overflow bar
-		this.$.slotContainer.style.overflow = "hidden";
 		//thow click event for parent elements
 		this.dispatchEvent(new CustomEvent('section-clicked', {detail: {}}));
-
-		setTimeout(function(){
-			if (overflow === "hidden" && this._expanded)
-				this.$.slotContainer.style.overflow = "auto";
-		}.bind(this), delay);
-
 	}
 
 	_headerPositionChange(val, oldval) {
@@ -91,6 +105,8 @@ class ExpandableSection extends PolymerElement {
 			width: var(--sectionWidth, 100%);
 			-webkit-transition: height var(--sectionTransitionSpeed, 1s);
 			-webkit-transition-timing-function: ease;
+			-moz-transition: height var(--sectionTransitionSpeed, 1s);
+			-moz-transition-timing-function: ease;
 			 transition: height var(--sectionTransitionSpeed, 1s);
 			transition-timing-function: ease;
 			padding: 2px 0px 2px 0px;
@@ -127,7 +143,7 @@ class ExpandableSection extends PolymerElement {
 			<template is="dom-if" if="[[!_showSpacerRight]]"><div id="spacer-right" class="spacer"></div></template>
 		</div>
 		<div id="slotContainer">
-			<slot></slot>
+			<slot id="slot"></slot>
 		</div>
 	</div>
 	

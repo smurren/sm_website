@@ -1,21 +1,26 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/start-polymer3.js",
+  "shell": "src/home-main.js",
   "fragments": [
-    "src/lazy-element.js"
+    
   ],
   "sources": [
-   "src/start-polymer3.js",
+   "src/home-main.js",
    "manifest/**",
    "package.json"
   ],
   "extraDependencies": [
-    "manifest.json",
-    "node_modules/@webcomponents/webcomponentsjs/**"
+	"myServer.py",
+	"startServer.sh",
+	"manifest.json",
+	"node_modules/@webcomponents/webcomponentsjs/**",
+	"apps/**",
+	"images/**"
   ],
   "builds": [
     { 
-      "preset": "es6-unbundled"
+      "preset": "es5-bundled",
+	"html": { "minify": true }
     }
   ],
   "moduleResolution": "node",
