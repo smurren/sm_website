@@ -135,8 +135,7 @@ class ExpandableSection extends PolymerElement {
 			height: 100%;
 		}
 		#slotContainer {
-			/* height: calc(100% - 96px); */
-			height: 100%;
+			height: calc(100% - 96px);  /* TODO:  96px should be 3x --sectionHeight */
 			padding: 15px 18px 15px 14px;
 			overflow: hidden;
 		}
