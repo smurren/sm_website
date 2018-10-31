@@ -111,6 +111,7 @@ class HomeWebapps extends PolymerElement {
 				}
 				.appHeader {
 					font-size: 20px;
+					color: var(--webappsHeaderColor, #000);
 				}
 				.infoContainer {
 

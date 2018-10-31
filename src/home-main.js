@@ -10,17 +10,13 @@ import './home-projects.js'
 class HomeMain extends PolymerElement {
   static get properties () {
     return {
-    		//sections: {
-		//	type: Array,
-		//	value: () => [
-		//		{title: "Sean Murren", width: "95%", align: "left", headerPosition: "right", color: "#7a7a7a", backColor: "#bcbcbc", active: false}, 
-		//		{title: "Web Applications", width: "90%", align: "right", headerPosition: "left", color: "#bcbcbc", backColor: "#3d3935", active: false},
-		//		{title: "Other Projects", width: "70%", align: "left", headerPosition: "right", color: "#3d3935", backColor: "#7a7a7a", active: false}
-		//	]
-		//},
 		sectionToggleFlag: {
 			type: Boolean,
 			value: false
+		},
+		_headerHeight: {
+			type: Number,  //must be pixels
+			value: 34  //NOTE:  For now you need to change --sectionHeight CSS to match this (reason this is private)
 		},
 		_selectedSection: {
 			type: Object  //dom element
@@ -34,22 +30,47 @@ class HomeMain extends PolymerElement {
 
 	ready(){
 		super.ready();
+		if (window.innerWidth < 1025)
+			this.$.about.hidePiImage(true);
+		window.addEventListener('resize', e => this._windowResized(e));
+	}
 
+	_getWindowHeight() {
+		return window.innerHeight - this._headerHeight * 3;
+	}
+
+	//makes sure section height updates on any window resize.  Also hides Pi image if width too small(position not dynamic currently)
+	_windowResized(e) {
+		let height = this._getWindowHeight();
+		if (this._selectedSection) {
+			if (this.sectionToggleFlag === false)  //section state is expanded
+				//resize height
+				this._selectedSection.updateHeight(height+"px");
+		}
+
+		if (window.innerWidth < 1025)
+			this.$.about.hidePiImage(true);  //hide = true
+		else
+			this.$.about.hidePiImage(false);  //hide = false
 	}
 
 	_sectionClicked(e) {
+		
 		let section = e.target;
-		let height = window.innerHeight - 96;  //browser height - 3x header height
+		let height = this._getWindowHeight(); 
 		
 		if (this._selectedSection) {
-			this._selectedSection.setHeight("32px", false);  //second arg is expanded flag, helps expandable-section element handle scrolling
+			//another section may be already open
+			this._selectedSection.setHeight(this._headerHeight+"px", false);  //second arg is expanded flag, helps expandable-section element handle scrolling
 			if (this._selectedSection != section) {
+				//section selection has changed
 				section.setHeight(height+"px", true);
-				this.set('sectionToggleFlag', false);
+				this.set('sectionToggleFlag', false);  //true means section closed
 			}
 			else {
+				//section selection same, expanded status being toggled
 				if (this.sectionToggleFlag === false)
-					section.setHeight("32px", false);
+					section.setHeight(this._headerHeight+"px", false);
 				else {
 					section.setHeight(height+"px", true);
 				}
@@ -68,13 +89,17 @@ class HomeMain extends PolymerElement {
     return html`
       <style>
 		:host {
-			--sectionHeight: 32px;
+			--sectionHeight: 34px; 
 			--sectionFontSize: 11px;
 			--sectionTransitionSpeed: 750ms;
+			--sectionHeaderWidth: calc(100% - 16px);
+			--aboutHeaderColor: #7a7a7a;
 			--aboutBorder: solid #7a7a7a;
 			--aboutBorderWidth: 0px 0px 0px 14px;
-			--webappsBorder: solid #bcbcbc;
+			--webappsHeaderColor: #a9a9a9;
+			--webappsBorder: solid #a9a9a9;
 			--webappsBorderWidth: 0px 0px 0px 14px;
+			--projectsHeaderColor: #3d3935;
 			--projectsBorder: solid #3d3935;
 			--projectsBorderWidth: 0px 0px 0px 14px;
 		}
@@ -102,11 +127,11 @@ class HomeMain extends PolymerElement {
 					header="About" 
 					header-position="right"
 					color="#7a7a7a" 
-					background-color="#bcbcbc"
-					border-width="2px 0px 0px 14px"
+					background-color="#a9a9a9"
+					border-width="2px 0px 0px 15px"
 					on-section-clicked="_sectionClicked">
 					
-					<home-about></home-about>
+					<home-about id="about"></home-about>
 
 				</expandable-section>
 			</div>
@@ -119,7 +144,7 @@ class HomeMain extends PolymerElement {
 					header-position="left"
 					color="#7a7a7a" 
 					background-color="#3d3935"
-					border-width="2px 14px 0px 0px"
+					border-width="2px 15px 0px 0px"
 					on-section-clicked="_sectionClicked">
 					
 					<home-webapps></home-webapps>
@@ -135,7 +160,7 @@ class HomeMain extends PolymerElement {
 					header-position="right"
 					color="#7a7a7a" 
 					background-color="#7a7a7a"
-					border-width="2px 0px 0px 14px"
+					border-width="2px 0px 0px 15px"
 					on-section-clicked="_sectionClicked">
 					
 					<home-projects></home-projects>

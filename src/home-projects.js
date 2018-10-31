@@ -97,6 +97,7 @@ class HomeProjects extends PolymerElement {
 				}
 				.projectHeader {
 					font-size: 18px;
+					color: var(--projectsHeaderColor, #000);
 				}
 				.projectDescription {
 					margin: 5px 0px 15px 0px;

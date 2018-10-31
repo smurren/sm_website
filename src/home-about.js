@@ -17,6 +17,10 @@ class HomeAbout extends PolymerElement {
 		return this.$.mainAboutContainer.clientHeight;
 	}
 
+	hidePiImage(hide) {
+		this.$["image-pi"].style.visibility = hide ? "hidden": "visible";
+	}
+
 	ready(){
 		super.ready();
 		this.addEventListener('click', this._onClick);
@@ -27,15 +31,26 @@ class HomeAbout extends PolymerElement {
 		return html`
 
 		<style>
+			#mainAboutContainer {
+				position: relative; 
+				display: flex; 
+				min-width: 1025px;
+			}
 			#aboutContainer {
 				flex: 1;
 				padding: 5px;
+				min-width: 612px;
+				max-width: 612px;
+			}
+			.aboutSection {
+				padding-left: 8px;
 				border: var(--aboutBorder, none);
 				border-width: var(--aboutBorderWidth, 0);
 			}
 			.aboutHeader {
 				font-size: 30px;
 				margin-bottom: 10px;
+				color: var(--aboutHeaderColor, #000);
 			}
 			#aboutMeName {
 				
@@ -59,37 +74,41 @@ class HomeAbout extends PolymerElement {
 
 			}
 		</style>
-		<div id="mainAboutContainer" style=" position: relative; display: flex; min-width: 900px;">
-		<div id="aboutContainer">
-			<div style="display: inline-block; max-width: 565px;">
-			<div id="aboutMeName" class="aboutHeader">
-				Sean Murren
-			</div>
-			<div id="aboutMeJobTitle">
-				Software Engineer
-			</div>
-			<div id="aboutDescription" class="aboutDescription">
-				Creative and solution-oriented Computer Scientist with a wide range of experiences and skills.
-			</div>
-			<div class="aboutSpacer"></div>
-			<div id="aboutWebsiteContainer">
-				<div class="aboutHeader">
-					Website
-				</div>
-				<div class="aboutDescription">
-					This website is a Polymer 3 application.  It and all of the web applications are hosted on a Raspberry Pi 3 with a CherryPy web server.
-				</div>
+		<div id="mainAboutContainer">
+			<div id="aboutContainer">
+			<div class="aboutSection">
+					<div id="aboutMeName" class="aboutHeader">
+						Sean Murren
+					</div>
+					<div id="aboutMeJobTitle">
+						Software Engineer
+					</div>
+					<div id="aboutDescription" class="aboutDescription">
+						Creative and solution-oriented Computer Scientist with a wide range of experiences and skills.
+					</div>			
 			</div>
 			<div class="aboutSpacer"></div>
-			<div id="aboutWebsiteContainer">
-				<div class="aboutHeader">
-					GitHub
-				</div>
-				<div class="aboutDescription">
-					<span>The source code for this website, web applications, and many of the other projects can be found on my GitHub page </span>
-					<a href="http://github.com/smurren">http://github.com/smurren</a>
+			<div class="aboutSection">
+				<div id="aboutWebsiteContainer">
+					<div class="aboutHeader">
+						Website
+					</div>
+					<div class="aboutDescription">
+						This website is a Polymer 3 application.  It and all of the web applications are hosted on a Raspberry Pi 3 with a CherryPy web server.
+					</div>
 				</div>
 			</div>
+			<div class="aboutSpacer"></div>
+			<div class="aboutSection">
+				<div id="aboutWebsiteContainer">
+					<div class="aboutHeader">
+						GitHub
+					</div>
+					<div class="aboutDescription">
+						<span>The source code for this website, web applications, and many of the other projects can be found on my GitHub page </span>
+						<a href="http://github.com/smurren">http://github.com/smurren</a>
+					</div>
+				</div>
 			</div>
 		
 		</div>

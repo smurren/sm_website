@@ -50,12 +50,17 @@ class ExpandableSection extends PolymerElement {
 		this.$.headerContainer.addEventListener('click', this._onClick.bind(this));
 	}
 
+	updateHeight(h) {
+		this.$.container.style.height = h;
+	}
+
 	/*  Accepts string h parameter.  Include px or %, etc .  Because of this the caller must say if new height is expanding or not*/
 	setHeight(h, expanded) {
-		this.$.container.style.height = h;
 
 		let delay = this._delayMS();
 		let overflow = window.getComputedStyle(this.$.slotContainer).overflow;
+
+		this.updateHeight(h) ;
 
 		if (expanded)
 				this.$.slotContainer.style.overflow = "hidden";
@@ -116,13 +121,13 @@ class ExpandableSection extends PolymerElement {
 			display: flex;
 			align-items:  center;
 			height: var(--sectionHeight, 40px);		
-			width: calc(100% - 14px);
+			width: var(--sectionHeaderWidth, 100%);
 			cursor: pointer;
 			margin-bottom: 10px;
 		}
      		#header {
 			flex: 0;
-			padding: 0px 40px 0px 40px;
+			padding: 0px var(--sectionHeight, 40px) 0px var(--sectionHeight, 40px);
 			white-space: nowrap;
 		}
 		.spacer {
@@ -130,7 +135,8 @@ class ExpandableSection extends PolymerElement {
 			height: 100%;
 		}
 		#slotContainer {
-			height: calc(100% - 96px); 
+			/* height: calc(100% - 96px); */
+			height: 100%;
 			padding: 15px 18px 15px 14px;
 			overflow: hidden;
 		}
