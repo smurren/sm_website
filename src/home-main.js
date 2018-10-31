@@ -20,7 +20,8 @@ class HomeMain extends PolymerElement {
 		},
 		_selectedSection: {
 			type: Object  //dom element
-		}
+		},
+		_minWidthForPi: { type: Number, value: 1115 }
     };
   }
 
@@ -30,7 +31,7 @@ class HomeMain extends PolymerElement {
 
 	ready(){
 		super.ready();
-		if (window.innerWidth < 1025)
+		if (window.innerWidth < this._minWidthForPi)
 			this.$.about.hidePiImage(true);
 		window.addEventListener('resize', e => this._windowResized(e));
 	}
@@ -48,7 +49,7 @@ class HomeMain extends PolymerElement {
 				this._selectedSection.updateHeight(height+"px");
 		}
 
-		if (window.innerWidth < 1025)
+		if (window.innerWidth < this._minWidthForPi)
 			this.$.about.hidePiImage(true);  //hide = true
 		else
 			this.$.about.hidePiImage(false);  //hide = false
