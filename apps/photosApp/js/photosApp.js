@@ -15,6 +15,9 @@
 	    .when("/:image", {
 		  controller: "PhotosAppController"
 	    })
+		.when("/:image/delete", {
+		  controller: "PhotosAppController"
+	    })
 	});
 
 
@@ -24,6 +27,7 @@
 
 		p.modalOpen = false;
 		p.secret = "";
+		p.deleteOption = false;
 		p.thumbnails = [];  //only what is loaded into view
 		p.fullThumbnailsData = [];  //all image filepaths returned from server
 		p.thumbnailData = {
@@ -33,7 +37,7 @@
 			thumbContainers: []
 		};
 		p.detailSrc = null;
-		p.view = "gallery";
+		p.view = "";
 		p.sortIconState = {none: "block", ascend: "none", descend: "none"};
 		p.showUploadModal = false;
 		p.showEXIFModal = false;
@@ -268,20 +272,27 @@
 		angular.element($window).bind("scroll", p.infScroll);		
 
 		$scope.$on('$routeChangeStart', function($event, next, current) {
-			if (next.$$route.originalPath === "/")  {
-				p._hideSortIcons();		
-				switch(p.sorterState) {
-					case "Descend": p.sortIconState.descend = "block"; break;
-					case "Ascend": p.sortIconState.ascend = "block"; break;
-					default: p.sortIconState.none = "block"; 
+			p.deleteOption = false;
+			if (next) {
+				if (next.$$route.originalPath === "/")  {
+					p._hideSortIcons();		
+					switch(p.sorterState) {
+						case "Descend": p.sortIconState.descend = "block"; break;
+						case "Ascend": p.sortIconState.ascend = "block"; break;
+						default: p.sortIconState.none = "block"; 
+					}
+					p.setView("gallery");
 				}
-				p.setView("gallery");
+				else if (next.$$route.originalPath.substring(0,7) === "/:image") {
+					p.setView("detail");
+					if (next.$$route.originalPath.substring(next.$$route.originalPath.length-7) === "/delete")
+						p.deleteOption = true;
+				}
 			}
-			else if (next.$$route.originalPath === "/:image")
-				p.setView("detail");
 		});
 		//this is necessary because ng-view is not being used and routeparams may be empty initially
 		$scope.$on('$routeChangeSuccess', function() {
+			
 			if (p.view === "detail") {
 				p.detailSrc = "photos/"+$routeParams.image;
 			}
@@ -306,6 +317,31 @@
 				p.infScroll();
 			}
 			
+		};
+
+		p.deleteImage = function() {
+			$http({
+				url: "/photos/delete/",
+		    		method: 'POST',
+		   	 	data: {secret: p.secret, filename: $routeParams.image},
+				headers: {'Content-Type': 'application/json'},
+				}).then(response => {
+					if (response.status === 200) {
+						if (response.data.success) {
+							alert("Image delete successful");
+							$location.path("/");
+						}
+						else
+							alert("Delete failed.  \nReason:  " + response.data.reason);
+					}
+					else {
+						alert("Failed to delete image properly:  Server error.");
+					}		
+				});
+		};
+
+		p.cancelDelete = function() {
+			$location.path("/");
 		};
 				
 		p.getExif = function(img) {

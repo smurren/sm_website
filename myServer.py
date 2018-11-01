@@ -147,6 +147,35 @@ class PhotosApp(object):
 				return json.dumps({"success": False, "reason": "Image name already exists"})
 		else:
 			return json.dumps({"success": False, "reason": "Invalid Token"})
+
+	@cherrypy.expose
+	@cherrypy.tools.json_in()
+	def delete(self):
+		secret = cherrypy.request.json["secret"]
+		filename = cherrypy.request.json["filename"]
+	
+		if secret == SECRET_TOKEN:
+			#delete thumbnail
+			try:
+				os.remove(PHOTOS_DIRECTORY+"thumbnails/"+filename)
+			except:
+				return json.dumps({"success": False, "reason": "Failed to delete image thumbnail file"})
+			#delete image
+			try:
+				os.remove(PHOTOS_DIRECTORY+filename)
+			except:
+				return json.dumps({"success": False, "reason": "Failed to delete image file"})
+			#delete EXIF database entry
+			try:
+				mariadb, cursor = getMariaDBConnection()
+				cursor.execute("DELETE FROM Images WHERE Filename = %s;", [filename])
+				mariadb.commit()
+				mariadb.close()
+			except:
+				return json.dumps({"success": False, "reason": "Failed to delete image EXIF data"})
+		else:
+			return json.dumps({"success": False, "reason": "Invalid Token"})
+
 	
 class Snake(object):
 	@cherrypy.expose

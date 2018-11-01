@@ -74,6 +74,14 @@
 				<img id="fullDetailImage" class="fullImage" ng-src="{{photoCtrl.detailSrc}}" ng-click="photoCtrl.toggleZoom()" onload="getDetailExif()"></img>
 			</div>
 
+			<div style="margin: 100px;" ng-if="photoCtrl.deleteOption">
+				<div><input type="text" ng-model="photoCtrl.secret" placeholder="Secret token (Required)"></div>
+				<div>
+					<button ng-click="photoCtrl.deleteImage()">Delete</button>
+					<button ng-click="photoCtrl.cancelDelete()">Cancel</button>
+				</div>
+			</div>
+
 		</div>
 	</body>
 
