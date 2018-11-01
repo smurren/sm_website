@@ -15,11 +15,11 @@ class HomeWebapps extends PolymerElement {
 					link: "http://github.com/smurren/myStudyGroupPlanner",
 					info: [
 						"CMSC447 Software Engineering Group Project",
-						"Worked with a team of 4 other students over entire semester",
-						"Met with client to gather/document requirements",
-						"Features: Accounts/Authentication, Create/Join study groups, Search Groups, Create/Join Meetings, Asynchronous chat, Report System, Admin",
-						"Technologies used: Django, MariaDB, AngularJS, Javascript, HTML/CSS",
-						"Originally hosted Externally on Amazon EC2"
+						"Worked with a team of 4 other students over a full semester",
+						"Met with client to gather and document requirements",
+						"Features:  'Accounts/Authentication', 'Create/Join study groups', 'Search Groups', 'Create/Join Meetings', 'Asynchronous chat', 'Report System', 'Admin'",
+						"Technologies used: Django, MariaDB, AngularJS, JavaScript, HTML/CSS",
+						"Originally deployed on Amazon EC2"
 					]
 					},
 					{
@@ -30,7 +30,7 @@ class HomeWebapps extends PolymerElement {
 							"Submitted message is played as audio on Pi's speaker using espeak",
 							"Up to 100 messages saved with message, name, date, time",
 							"Data saved to txt file, no database used",
-							"Implemented Infinite Scrolling with AngularJS",
+							"Infinite Scrolling",
 							"Randomized CSS"
 						]
 					},
@@ -40,7 +40,7 @@ class HomeWebapps extends PolymerElement {
 						link: "http://seanmurren.com/sudoku/",
 						info: [
 							"Implements backtracking algorithm to find solution",
-							"Also implements a heuristic which selects next cell with least possible valid input values remaining.  This greatly improves performance"
+							"Employs a heuristic which selects next cell with least possible valid input values remaining which greatly improves performance"
 						]
 					},
 					{
@@ -48,8 +48,8 @@ class HomeWebapps extends PolymerElement {
 						date: "July 2016",
 						link: "http://seanmurren.com/magic8/",
 						info: [
-							"AngularJS animation: text fade-in",
-							"Javascript animation: 'shakes' image"
+							"AngularJS animation:  text fade-in",
+							"JavaScript animation:  'shakes' image"
 						]
 					},
 					{
@@ -57,11 +57,11 @@ class HomeWebapps extends PolymerElement {
 						date: "July 2016",
 						link: "http://seanmurren.com/snake/",
 						info: [
-							"100% Javascript game",
+							"100% plain JavaScript game",
 							"Classic snake game with slight twist",
-							"Animation done on <canvas>", 
+							"Animation on <canvas>", 
 							"Keyboard controls",
-							"Adjustable grid size, animation speed"
+							"Adjustable grid size and animation speed"
 						]
 					},
 					{
@@ -70,9 +70,11 @@ class HomeWebapps extends PolymerElement {
 						link: "http://seanmurren.com/photos/",
 						info: [
 							"AngularJS based web app",
-							"Implemented server and client code/styling from scratch",
-							"Image upload to server", 
+							"Server and client code implemented from scratch",
+							"Web design, HTML/CSS implemented from scratch",
+							"Image upload to my CherryPy server", 
 							"EXIF data extracted and stored in MariaDB for image sorting",
+							"Sort images ascending/descending based of EXIF properties such as f-number, aperture, and ISO",
 							"Infinite scrolling"
 						]
 					}

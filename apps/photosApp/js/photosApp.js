@@ -44,7 +44,7 @@
 		p.detailZoomed = false;
 		p.exifTitle = "";
 		p.exifData = [];
-		p.exifExclusions = ["undefined", "thumbnail"];
+		p.exifExclusions = ["undefined", "thumbnail", "ResolutionUnit", "XResolution", "YResolution"];
 		p.sorterState = "None";
 		p.selectedSort = "None";
 		p.sortOptions = ["None"];   //Need to request from server
@@ -147,7 +147,9 @@
 		    		method: 'GET',
 				}).then(response => {
 		    			if (response.status === 200) {
-						p.sortOptions = p.sortOptions.concat(response.data.sort());
+						p.sortOptions = p.sortOptions.concat(response.data.sort().filter(
+							entry => p.exifExclusions.indexOf(entry[0]) == -1
+						));
 					}
 					else {
 						console.log("ERROR:  Unable to load sort options");
@@ -309,19 +311,23 @@
 		p.getExif = function(img) {
 			EXIF.getData(img, function() {
 				let exif = EXIF.getAllTags(this);
+				if (exif["ExposureTime"]) exif["ExposureTime"] = "1/" + parseInt(1.0 / (parseFloat(exif["ExposureTime"])));
+				if (exif["ApertureValue"]) exif["ApertureValue"] = "f/" + Math.pow(2, parseFloat(exif["ApertureValue"]) / 2.0).toFixed(1)
+				if (exif["MaxApertureValue"]) exif["MaxApertureValue"] = "f/" + Math.pow(2, parseFloat(exif["MaxApertureValue"]) / 2.0).toFixed(1)
 				p.exifTitle = exif["Make"] + " - " + exif["Model"];
 				p.exifData = Object.entries(exif).filter(
 									entry => p.exifExclusions.indexOf(entry[0]) == -1
-								).sort(function(a,b){ 
-									return a[0].toLowerCase() > b[0].toLowerCase() ; 
-								});
+								).sort();
 			});
 			
 		};
 
 		getDetailExif = function() {
-			p.getExif(document.querySelector("img"));  //only one in detail view
-			document.getElementById("exifButton").disabled = false;
+			let exifButton = document.getElementById("exifButton");
+			setTimeout(function() {
+				p.getExif(document.querySelector("img"));  //only one in detail view
+				exifButton.disabled = false;
+			}.bind(p), 100);
 		};
 		
 		p.modalDisplay = "flex";
